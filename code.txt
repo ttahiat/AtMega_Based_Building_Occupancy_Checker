@@ -1,0 +1,60 @@
+#include <mega32.h>
+#include <delay.h>
+#include <stdlib.h>
+#include <alcd.h>
+#include <stdio.h>
+
+char k=0;
+
+// ADC interrupt service routine
+interrupt [ADC_INT] void adc_isr(void)
+{
+    int count1=0;
+    int count2=0;
+    float adc_data;
+    char disp[16];
+    adc_data=ADCW/204.81; 
+    if(k==0){  
+    if(adc_data<3.46){  
+     count1 ++ ;
+     sprintf(disp, "C1 = %d ", count1); 
+     lcd_gotoxy(0,0);
+     lcd_puts(disp);
+     } }
+
+     if(k==1){
+     if(adc_data <3.46){
+     count2 ++ ;
+     sprintf(disp, "C2= %d ", count2); 
+     lcd_gotoxy(1,1);
+     lcd_puts(disp);}
+     
+    } 
+    k=~k;
+}
+
+void main(void)
+{
+     DDRC=0xFF;
+     DDRD=0xFF;  
+        
+
+ADCSRA=(1<<ADEN) | (0<<ADSC) | (1<<ADATE) | (0<<ADIF) | (1<<ADIE) | (1<<ADPS2) | (1<<ADPS1) | (1<<ADPS0);
+
+lcd_init(16);
+#asm("sei")
+while (1)
+      {      
+      ADCSRA |= (1<<ADSC); 
+      if (k==0){
+      ADMUX=0b01000000;
+       
+      }
+      else{
+      ADMUX=0b01000011;
+       
+       } 
+        
+      
+      }
+}
