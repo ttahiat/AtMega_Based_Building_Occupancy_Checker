@@ -1,4 +1,4 @@
-### Bidirectional Visitor Counter with ATmega32 Microcontroller
+## Bidirectional Visitor Counter with ATmega32 Microcontroller
 Visitor counting is a vital aspect of managing traffic flow in various settings such as conference rooms, malls, sports venues, and more. The aim of this project is to design and construct a bidirectional visitor counter using an ATmega32 microcontroller. The project is simulated in Proteus, and the code is done in CodeVisionAVR.
 
 ## Project Objective
